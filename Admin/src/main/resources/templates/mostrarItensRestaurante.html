@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens do Restaurante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #DBAFA0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 700px;
+            padding: 30px;
+            background-color: #FFF;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        h1 {
+            color: #BB8493;
+            margin-bottom: 10px;
+        }
+        .restaurant-name {
+            font-size: 50px;
+            color: #704264;
+            margin-bottom: 10px;
+        }
+        table {
+            width: calc(100% - 40px);
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #BB8493;
+            text-align: left;
+        }
+        th {
+            background-color: #49243E;
+            color: #FFF;
+        }
+        td a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: color 0.3s ease;
+        }
+        td a:hover {
+            color: #0056b3;
+        }
+        .action-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .remove-button a, .add-button a {
+            border-radius: 50%;
+            background-color: #704264;
+            color: #FFF;
+            padding: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+        }
+        .remove-button a:hover, .add-button a:hover {
+            background-color: #DBAFA0;
+            color: #FFF;
+        }
+        .edit-button a {
+            background-color: #BB8493;
+            color: #FFF;
+            padding: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .edit-button a:hover {
+            background-color: #DBAFA0;
+            color: #FFF;
+        }
+        .back-button {
+            color: #FFF;
+            background-color: #BB8493;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .back-button:hover {
+            background-color: #DBAFA0;
+        }
+        .add-button {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+        }
+        .add-button a {
+            border-radius: 50%;
+            background-color: #704264;
+            color: #FFF;
+            padding: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+        .add-button a:hover {
+            background-color: #DBAFA0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="restaurant-name" th:text="${restauranteAtual.nome}"></div>
+    <h1>Itens:</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cardapio}">
+            <td th:text="${item.nome}"></td>
+            <td th:text="${item.descricao}"></td>
+            <td th:text="'R$ ' + ${item.preco}"></td>
+            <td class="action-buttons">
+                <div class="edit-button">
+                    <a th:href="@{'/editarItemCardapio/' + ${item.id}}">Editar</a>
+                </div>
+                <div class="remove-button">
+                    <a th:href="@{'/removerItemCardapio/' + ${item.id}}" onclick="return confirm('Tem certeza que deseja remover este item do cardápio?')">-</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="add-button">
+        <a th:href="@{'/adicionarItemRestaurante/' + ${restauranteAtual.id}}">
+            <span>+</span>
+        </a>
+    </div>
+    <a class="back-button" th:href="@{/restaurantesAdministracao}">Voltar</a>
+</div>
+</body>
+</html>

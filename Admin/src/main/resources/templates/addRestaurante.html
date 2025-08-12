@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Restaurante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #DBAFA0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 300px;
+            padding: 30px;
+            background-color: #FFF;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #49243E;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #704264;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #BB8493;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            width: 50px;
+            height: 50px;
+            background-color: #704264;
+            color: #FFF;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            line-height: 50px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #49243E;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Novo Restaurante</h1>
+    <form action="/addRestaurante" method="post">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <button type="submit">+</button>
+    </form>
+</div>
+</body>
+</html>
+

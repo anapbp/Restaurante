@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurantes Cadastrados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #DBAFA0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            padding: 30px;
+            background-color: #FFF;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #49243E;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+        li {
+            margin-bottom: 20px;
+            border: 1px solid #BB8493;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #F8F8F8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .restaurant-name {
+            color: #704264;
+            flex-grow: 1;
+            text-align: left;
+        }
+        .action-buttons {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .action-buttons a {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: 1px solid #BB8493;
+            border-radius: 50px;
+            background-color: #BB8493;
+            color: #FFF;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        .action-buttons a:last-child {
+            border-radius: 50%;
+            background-color: #704264;
+        }
+        .action-buttons a:hover {
+            background-color: #DBAFA0;
+            border-color: #DBAFA0;
+        }
+        .add-restaurant-button {
+            margin-top: 20px;
+        }
+        .add-restaurant-button a {
+            padding: 15px 30px;
+            border: 1px solid #49243E;
+            border-radius: 20px;
+            background-color: #49243E;
+            color: #FFF;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        .add-restaurant-button a:hover {
+            background-color: #DBAFA0;
+            border-color: #DBAFA0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Restaurantes Cadastrados</h1>
+
+    <ul>
+        <th:block th:each="restaurante : ${restaurantes}">
+            <li>
+                <div class="restaurant-name">
+                    <span th:text="${restaurante.nome}"></span>
+                </div>
+                <div class="action-buttons">
+                    <a th:href="@{'/atualizarRestaurante/' + ${restaurante.id}}">Editar</a>
+                    <a th:href="@{'/adicionarItemRestaurante/' + ${restaurante.id}}">Adicionar</a>
+                    <a th:href="@{'/mostrarItensRestaurante/' + ${restaurante.id}}">Visualizar</a>
+                    <a th:href="@{'/removerRestaurante/' + ${restaurante.id}}" onclick="return confirm('Tem certeza que deseja remover este restaurante?')">-</a>
+                </div>
+            </li>
+        </th:block>
+    </ul>
+
+    <div class="add-restaurant-button">
+        <a th:href="@{'/adicionarRestaurante'}">Adicionar</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itens do Pedido</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #DBAFA0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .container {
+      position: relative;
+      background-color: #FFF;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      max-width: 700px;
+    }
+    h1 {
+      color: #704264;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #BB8493;
+      text-align: left;
+    }
+    th {
+      color: #FFF;
+    }
+    th.total {
+      background-color: #704264;
+    }
+    th:not(.total) {
+      background-color: #49243E;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #0056b3;
+    }
+    .back-button {
+      position: absolute;
+      bottom: 5px;
+      left: 20px;
+      color: #FFF;
+      background-color: #49243E;
+      padding: 10px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+      background-color: #DBAFA0;
+      color: #FFF;
+    }
+    .action-button {
+      display: flex;
+      align-items: center;
+    }
+    .action-button button.add-button,
+    .action-button button.remove-button {
+      border-radius: 50%;
+      background-color: #BB8493;
+      color: #FFF;
+      padding: 15px;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .action-button button.add-button:hover,
+    .action-button button.remove-button:hover {
+      background-color: #DBAFA0;
+    }
+    .delete-button {
+      border-radius: 50%;
+      background-color: transparent;
+      color: #FFF;
+      padding: 15px;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .delete-button:hover {
+      background-color: transparent;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Itens do Pedido</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Quantidade</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${mapaItensQuantidade}">
+      <td>
+        <span><strong>x</strong></span> <span th:text="${entry.value}"></span>
+      </td>
+      <td>
+        <span th:text="${entry.key.nome}"></span>
+        <br/>
+        <span th:text="${mapaItensRestaurante[entry.key].nome}"></span>
+      </td>
+      <td th:text="${entry.key.descricao}"></td>
+      <td>
+        <strong>R$</strong> <span th:text="${entry.key.preco}"></span>
+      </td>
+      <td class="action-button">
+        <a th:href="@{/removerPedido/{id}(id=${entry.key.id})}">
+          <button class="remove-button">-</button>
+        </a>
+        <a th:href="@{/adicionarPedido/{id}(id=${entry.key.id})}">
+          <button class="add-button">+</button>
+        </a>
+        <a th:href="@{/removerItemTipoPedido/{id}(id=${entry.key.id})}">
+          <img src="lixo.png" alt="Remover" class="delete-button">
+        </a>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <th colspan="4" class="total">Total:</th>
+      <td>
+        <strong>R$</strong> <span th:text="${totalPedido}"></span>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+  <!-- Botão para voltar -->
+  <a href="/exibirRestaurantes" class="back-button">Voltar</a>
+</div>
+</body>
+</html>

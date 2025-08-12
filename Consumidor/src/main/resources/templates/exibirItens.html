@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens do Restaurante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #DBAFA0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 700px;
+            padding: 30px;
+            background-color: #FFF;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        h1 {
+            color: #704264;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #BB8493;
+            margin-bottom: 10px;
+        }
+        table {
+            width: calc(100% - 40px);
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #BB8493;
+            text-align: left;
+        }
+        th {
+            background-color: #49243E;
+            color: #FFF;
+        }
+        td a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: color 0.3s ease;
+        }
+        td a:hover {
+            color: #0056b3;
+        }
+        .back-button {
+            color: #FFF;
+            background-color: #704264;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #DBAFA0;
+        }
+        .add-button {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+        }
+        .add-button button {
+            border-radius: 50%;
+            background-color: #BB8493;
+            color: #FFF;
+            padding: 15px;
+            font-size: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .add-button button:hover {
+            background-color: #49243E;
+        }
+        .view-button {
+            background-color: #704264;
+            color: #FFF;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+        }
+        .view-button:hover {
+            background-color: #DBAFA0;
+            color: white;
+        }
+
+        td.price {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${restaurante.nome}"></h1>
+    <h2>Menu:</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Adicionar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${itensCardapio}">
+            <td th:text="${item.nome}"></td>
+            <td th:text="${item.descricao}"></td>
+            <td th:text="'R$ ' + ${item.preco}" class="price"></td>
+            <td class="add-button">
+                <a th:href="@{'/adicionarPedido/'+${item.id}}">
+                    <button>
+                        <span>+</span>
+                    </button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="view-button" onclick="window.location.href='/listaItens'">Pedido</button>
+    <a href="/exibirRestaurantes" class="back-button">Voltar</a>
+</div>
+</body>
+</html>
